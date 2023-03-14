@@ -142,8 +142,13 @@ header {
   margin: 5em;
 }
 
+p{
+  font-size: 14px;
+  width:100px;
+  height:100px;
+}
 
-.data{
+.pokemons{
   display: grid;
   grid-template-columns:repeat(5, 1fr);
   border: solid 1px black;

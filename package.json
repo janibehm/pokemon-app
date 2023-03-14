@@ -10,6 +10,16 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-promise": "^6.1.1",
     "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0"
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "nodemon": "^2.0.21",
+    "ts-node": "^10.9.1"
+  },
+  "dependencies": {
+    "tsc": "^2.0.4",
+    "typescript": "^4.9.5"
+  },
+  "scripts": {
+    "start": "tsc && node dist/main.js",
+    "watch-and-run": "tsc -w & nodemon -q -w dist dist/main.js"
   }
 }
