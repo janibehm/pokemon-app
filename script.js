@@ -45,6 +45,17 @@ async function fetchGenerations () {
       pokemonDiv.appendChild(itemElement)
     })
 
+    data.results.forEach(item => {
+      const imageUrl = item
+      console.log(imageUrl)
+      if (imageUrl) {
+        console.log(imageUrl)
+        const imageElement = document.createElement('img')
+        imageElement.src = imageUrl
+        pokemonDiv.appendChild(imageElement)
+      }
+    })
+
     console.log(data)
   } catch (error) {
     console.error(error)
