@@ -23,6 +23,15 @@ buttons.forEach((button, index) => {
   })
 })
 
+/* const fetchData = () => {
+  const res = await fetch(endpoint)
+  await const data = await res.json()
+
+  const mappedUrls = data.results.map(async (item) => {
+  res = await fetch()
+})
+} */
+//
 // Define the PokeAPI endpoint URL
 const endpoint = 'https://pokeapi.co/api/v2/pokemon'
 
@@ -32,29 +41,24 @@ async function fetchGenerations () {
   const url = `${endpoint}?limit=${limit}&offset=${offset}`
 
   try {
+    Promise.all(url.localeCompare(url => {}))
     const response = await fetch(url)
     const data = await response.json()
     const pokemonDiv = document.querySelector('.pokemons')
 
-    pokemonDiv.innerHTML = ''
+    let html = ''
 
     data.results.forEach(item => {
       const itemName = item.name
-      const itemElement = document.createElement('p')
-      itemElement.textContent = itemName
-      pokemonDiv.appendChild(itemElement)
-    })
+      html += `<p>${itemName}</p>`
 
-    data.results.forEach(item => {
-      const imageUrl = item.sprites
-      console.log(imageUrl)
+      const imageUrl = item.sprites.front_default
       if (imageUrl) {
-        console.log(imageUrl)
-        const imageElement = document.createElement('img')
-        imageElement.src = imageUrl
-        pokemonDiv.appendChild(imageElement)
+        html += `<img src="${imageUrl}" alt="${itemName}">`
       }
     })
+
+    pokemonDiv.innerHTML = html
 
     console.log(data)
   } catch (error) {
