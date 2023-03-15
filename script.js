@@ -46,7 +46,7 @@ async function fetchGenerations () {
     })
 
     data.results.forEach(item => {
-      const imageUrl = item
+      const imageUrl = item.sprites
       console.log(imageUrl)
       if (imageUrl) {
         console.log(imageUrl)
