@@ -15,15 +15,20 @@ body {
     margin: 0 auto;
 }
 
+
 h1 {
-    color: #FFCC00 ;
+    color: #FFCC00;
     text-transform: uppercase;
     text-align: center;
 }
 
 h2{
-    color: #D5A100  ;
+    color: #D5A100;
     
+}
+
+h3{
+    color: #d53141;
 }
 
 #pokedex {
