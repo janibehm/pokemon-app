@@ -2,16 +2,6 @@ const search = document.getElementById('search')
 
 const pokemonNames = []
 
-search.addEventListener('keyup', (e) => {
-  const searchString = e.target.value
-  const filteredPokemons = pokemonData.filter(pokemon => {
-    return pokemon.name.includes(searchString)
-  })
-  console.log(filteredPokemons)
-})
-
-
-
 const generations = [
   { limit: 151, offset: 0 },
   { limit: 100, offset: 151 },
@@ -23,19 +13,43 @@ const generations = [
   { limit: 96, offset: 809 },
   { limit: 3, offset: 905 }
 ]
-// Get all the buttons and add click event listeners
+
+const pokedex = document.getElementById('pokedex')
 const buttons = document.querySelectorAll('.buttons')
 let clickedButtonId = 0
+
+const pokemonData = []
 
 buttons.forEach((button, index) => {
   button.addEventListener('click', () => {
     clickedButtonId = index
     console.log(`Button with id ${clickedButtonId} was clicked!`)
-    fetchPokemon()
+    fetchPokemons()
   })
 })
 
-const pokedex = document.getElementById('pokedex')
+const displayPokemons = (pokemons) => {
+  pokedex.innerHTML = ''
+  pokemons.forEach(item => {
+    const pokemonDiv = document.createElement('div')
+    pokemonDiv.classList.add('card')
+    pokemonDiv.innerHTML =
+      `<h2>${item.name}<h2/>
+        <img src=${item.image}>
+        <p>${item.type}</p>
+        <p>${item.id}</p>
+      `
+    pokedex.appendChild(pokemonDiv)
+  })
+
+  search.addEventListener('keyup', (e) => {
+    const searchString = e.target.value
+    const filteredPokemons = pokemonData.filter(pokemon => {
+      return pokemon.name.includes(searchString)
+    })
+    displayPokemons(filteredPokemons)
+  })
+}
 
 const fetchPokemons = () => {
   const promises = []
@@ -50,31 +64,23 @@ const fetchPokemons = () => {
         promises.push(fetch(url).then(res => res.json()))
       }
       Promise.all(promises).then(pokemon => {
-        const pokemonData = pokemon.map(item => ({
+        pokemonData.length = 0 // clear the array before updating
+        pokemonData.push(...pokemon.map(item => ({
           name: item.name,
           image: item.sprites.front_default,
           type: item.types.map(type => type.type.name).join(', '),
           id: item.id
-        }))
+        })))
         console.log(pokemonData)
         displayPokemons(pokemonData)
+      })
+    })
+}
 
-      })})
-    }
+fetchPokemons()
 
-    fetchPokemons()
 
-      const displayPokemons = (pokemons) => {
-        pokedex.innerHTML = ''
-        pokemons.forEach(item => {
-          const pokemonDiv = document.createElement('div')
-          pokemonDiv.classList.add('card')
-          pokemonDiv.innerHTML =
-            `<h2>${item.name}<h2/>
-              <img src=${item.image}>
-              <p>${item.type}</p>
-              <p>${item.id}</p>
-            `
-          pokedex.appendChild(pokemonDiv)
-        })
-      }
+
+    
+
+   
