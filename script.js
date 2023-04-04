@@ -23,7 +23,6 @@ const pokemonData = []
 buttons.forEach((button, index) => {
   button.addEventListener('click', () => {
     clickedButtonId = index
-    console.log(`Button with id ${clickedButtonId} was clicked!`)
     fetchPokemons()
   })
 })
@@ -71,7 +70,6 @@ const fetchPokemons = () => {
           type: item.types.map(type => type.type.name).join(', '),
           id: item.id
         })))
-        console.log(pokemonData)
         displayPokemons(pokemonData)
       })
     })
