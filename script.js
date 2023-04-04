@@ -1,3 +1,17 @@
+const search = document.getElementById('search')
+
+const pokemonNames = []
+
+search.addEventListener('keyup', (e) => {
+  const searchString = e.target.value
+  const filteredPokemons = pokemonData.filter(pokemon => {
+    return pokemon.name.includes(searchString)
+  })
+  console.log(filteredPokemons)
+})
+
+
+
 const generations = [
   { limit: 151, offset: 0 },
   { limit: 100, offset: 151 },
@@ -23,7 +37,7 @@ buttons.forEach((button, index) => {
 
 const pokedex = document.getElementById('pokedex')
 
-const fetchPokemon = () => {
+const fetchPokemons = () => {
   const promises = []
   const { limit, offset } = generations[clickedButtonId]
   const url = `https://pokeapi.co/api/v2/pokemon?limit=${limit}&offset=${offset}`
@@ -43,8 +57,16 @@ const fetchPokemon = () => {
           id: item.id
         }))
         console.log(pokemonData)
+        displayPokemons(pokemonData)
+
+      })})
+    }
+
+    fetchPokemons()
+
+      const displayPokemons = (pokemons) => {
         pokedex.innerHTML = ''
-        pokemonData.forEach(item => {
+        pokemons.forEach(item => {
           const pokemonDiv = document.createElement('div')
           pokemonDiv.classList.add('card')
           pokemonDiv.innerHTML =
@@ -55,8 +77,4 @@ const fetchPokemon = () => {
             `
           pokedex.appendChild(pokemonDiv)
         })
-      })
-    })
-}
-
-fetchPokemon()
+      }
